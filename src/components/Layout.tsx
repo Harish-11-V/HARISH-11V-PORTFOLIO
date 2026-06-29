@@ -141,7 +141,7 @@ export function PageTransition({ children, variant = "fade" }: { children: React
       initial={variants.initial}
       animate={variants.animate}
       exit={variants.exit}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
       className="relative min-h-screen pt-28 pb-20 px-4 sm:px-8"
     >
       {children}
