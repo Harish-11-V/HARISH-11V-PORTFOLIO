@@ -14,12 +14,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const stagger = {
+import type { Variants } from "framer-motion";
+const stagger: Variants = {
   animate: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
 };
-const fadeUp = {
+const fadeUp: Variants = {
   initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 function Index() {
