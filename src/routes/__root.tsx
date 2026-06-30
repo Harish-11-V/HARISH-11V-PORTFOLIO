@@ -13,8 +13,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Nav, GradientBlobs, SocialBar } from "../components/Layout";
+import { Nav, GradientBlobs, SocialBar, RouteSweep } from "../components/Layout";
 import { ParticlesRoot, ParticlesBackground } from "../components/ParticlesBackground";
+import { CursorGlow } from "../components/CursorGlow";
+import { ScrollProgress } from "../components/Effects";
 
 function NotFoundComponent() {
   return (
