@@ -125,11 +125,14 @@ function RootShell({ children }: { children: ReactNode }) {
 function AnimatedOutlet() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <div key={pathname}>
-        <Outlet />
-      </div>
-    </AnimatePresence>
+    <>
+      <RouteSweep pathname={pathname} />
+      <AnimatePresence mode="wait" initial={false}>
+        <div key={pathname}>
+          <Outlet />
+        </div>
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -143,6 +146,8 @@ function RootComponent() {
         <div className="fixed inset-0 -z-10">
           <ParticlesBackground />
         </div>
+        <CursorGlow />
+        <ScrollProgress />
         <Nav />
         <AnimatedOutlet />
         <SocialBar />
