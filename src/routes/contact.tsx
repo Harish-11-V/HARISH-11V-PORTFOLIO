@@ -40,7 +40,7 @@ function Contact() {
   }
 
   return (
-    <PageTransition variant="slide">
+    <PageTransition variant="flip">
       <section className="mx-auto max-w-2xl">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-sm font-semibold text-primary uppercase tracking-widest">Contact</p>

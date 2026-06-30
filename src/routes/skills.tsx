@@ -54,7 +54,7 @@ function Bar({ value, delay }: { value: number; delay: number }) {
 
 function Skills() {
   return (
-    <PageTransition variant="fade">
+    <PageTransition variant="blur">
       <section className="mx-auto max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-sm font-semibold text-primary uppercase tracking-widest">Toolkit</p>

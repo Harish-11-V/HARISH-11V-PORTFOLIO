@@ -13,8 +13,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Nav, GradientBlobs, SocialBar } from "../components/Layout";
+import { Nav, GradientBlobs, SocialBar, RouteSweep } from "../components/Layout";
 import { ParticlesRoot, ParticlesBackground } from "../components/ParticlesBackground";
+import { CursorGlow } from "../components/CursorGlow";
+import { ScrollProgress } from "../components/Effects";
 
 function NotFoundComponent() {
   return (
@@ -125,11 +127,14 @@ function RootShell({ children }: { children: ReactNode }) {
 function AnimatedOutlet() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <div key={pathname}>
-        <Outlet />
-      </div>
-    </AnimatePresence>
+    <>
+      <RouteSweep pathname={pathname} />
+      <AnimatePresence mode="wait" initial={false}>
+        <div key={pathname}>
+          <Outlet />
+        </div>
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -143,6 +148,8 @@ function RootComponent() {
         <div className="fixed inset-0 -z-10">
           <ParticlesBackground />
         </div>
+        <CursorGlow />
+        <ScrollProgress />
         <Nav />
         <AnimatedOutlet />
         <SocialBar />

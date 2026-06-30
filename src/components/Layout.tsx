@@ -112,7 +112,7 @@ export function GradientBlobs() {
   );
 }
 
-export function PageTransition({ children, variant = "fade" }: { children: ReactNode; variant?: "fade" | "slide" | "scale" | "rotate" }) {
+export function PageTransition({ children, variant = "fade" }: { children: ReactNode; variant?: "fade" | "slide" | "scale" | "rotate" | "blur" | "flip" | "curtain" }) {
   const variants = {
     fade: {
       initial: { opacity: 0, y: 30, filter: "blur(10px)" },
@@ -134,6 +134,21 @@ export function PageTransition({ children, variant = "fade" }: { children: React
       animate: { opacity: 1, rotateX: 0, y: 0 },
       exit: { opacity: 0, rotateX: 15, y: -40 },
     },
+    blur: {
+      initial: { opacity: 0, filter: "blur(30px) saturate(1.6)", scale: 1.04 },
+      animate: { opacity: 1, filter: "blur(0px) saturate(1)", scale: 1 },
+      exit: { opacity: 0, filter: "blur(30px) saturate(1.6)", scale: 0.98 },
+    },
+    flip: {
+      initial: { opacity: 0, rotateY: 35, x: 60 },
+      animate: { opacity: 1, rotateY: 0, x: 0 },
+      exit: { opacity: 0, rotateY: -35, x: -60 },
+    },
+    curtain: {
+      initial: { opacity: 0, clipPath: "inset(0 0 100% 0)" },
+      animate: { opacity: 1, clipPath: "inset(0 0 0% 0)" },
+      exit: { opacity: 0, clipPath: "inset(100% 0 0 0)" },
+    },
   }[variant];
 
   return (
@@ -141,11 +156,28 @@ export function PageTransition({ children, variant = "fade" }: { children: React
       initial={variants.initial}
       animate={variants.animate}
       exit={variants.exit}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+      style={{ perspective: 1400 }}
       className="relative min-h-screen pt-28 pb-20 px-4 sm:px-8"
     >
       {children}
     </motion.div>
+  );
+}
+
+/** Sweep overlay that flashes between route changes. */
+export function RouteSweep({ pathname }: { pathname: string }) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={pathname}
+        initial={{ scaleY: 1, transformOrigin: "top" }}
+        animate={{ scaleY: 0, transformOrigin: "top" }}
+        exit={{ scaleY: 1, transformOrigin: "bottom" }}
+        transition={{ duration: 0.55, ease: [0.83, 0, 0.17, 1] }}
+        className="pointer-events-none fixed inset-0 z-[55] bg-gradient-to-b from-[var(--color-neon)]/25 via-background to-[var(--color-neon-2)]/20"
+      />
+    </AnimatePresence>
   );
 }
 
