@@ -38,33 +38,39 @@ function Index() {
             digital experiences.
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-6 text-lg text-muted-foreground max-w-lg">
-            Full-stack developer specializing in 3D web, motion design, and performant interfaces. I turn ambitious ideas into cinematic products.
+            <RevealText text="Full-stack developer specializing in 3D web, motion design, and performant interfaces. I turn ambitious ideas into cinematic products." />
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground glow-hover"
-            >
-              Hire me
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground hover:bg-white/5"
-            >
-              View work
-            </Link>
+            <Magnetic>
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground glow-hover"
+              >
+                Hire me
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
+            <Magnetic strength={0.25}>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground hover:bg-white/5"
+              >
+                View work
+              </Link>
+            </Magnetic>
           </motion.div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
-        >
-          <HeroScene />
-        </motion.div>
+        <Parallax offset={40}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
+          >
+            <HeroScene />
+          </motion.div>
+        </Parallax>
       </section>
 
       {/* About */}
