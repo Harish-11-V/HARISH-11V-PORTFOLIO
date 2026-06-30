@@ -37,28 +37,29 @@ function Projects() {
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {PROJECTS.map((p, i) => (
-            <motion.a
+            <motion.div
               key={p.title}
-              href="#"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.6 }}
-              whileHover={{ y: -10, rotateX: 6, rotateY: -4 }}
-              style={{ transformStyle: "preserve-3d", perspective: 1200 }}
-              className="group relative rounded-3xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 overflow-hidden block"
             >
-              <div className={`absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br ${p.color} opacity-25 blur-3xl group-hover:opacity-60 transition-opacity duration-500`} />
-              <div className="relative" style={{ transform: "translateZ(40px)" }}>
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground px-2 py-1 rounded-full border border-white/10">
-                    {p.tag}
-                  </span>
-                  <ExternalLink size={16} className="text-muted-foreground group-hover:text-foreground transition" />
-                </div>
-                <h3 className="text-2xl font-bold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            </motion.a>
+              <TiltCard className="group relative rounded-3xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 overflow-hidden block h-full">
+                <a href="#" className="block">
+                  <div className={`absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br ${p.color} opacity-25 blur-3xl group-hover:opacity-70 transition-opacity duration-500`} />
+                  <div className="relative" style={{ transform: "translateZ(40px)" }}>
+                    <div className="flex items-start justify-between mb-6">
+                      <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground px-2 py-1 rounded-full border border-white/10">
+                        {p.tag}
+                      </span>
+                      <ExternalLink size={16} className="text-muted-foreground group-hover:text-foreground transition" />
+                    </div>
+                    <h3 className="text-2xl font-bold">{p.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                  </div>
+                  <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(600px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--color-neon) 18%, transparent), transparent 40%)" }} />
+                </a>
+              </TiltCard>
+            </motion.div>
           ))}
         </div>
       </section>
