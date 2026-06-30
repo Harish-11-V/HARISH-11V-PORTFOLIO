@@ -15,7 +15,7 @@ export const Route = createFileRoute("/resume")({
 
 function Resume() {
   return (
-    <PageTransition variant="rotate">
+    <PageTransition variant="flip">
       <section className="mx-auto max-w-4xl min-h-[70vh] flex flex-col items-center justify-center text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
