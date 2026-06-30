@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { HeroScene } from "../components/HeroScene";
 import { PageTransition } from "../components/Layout";
+import { Magnetic, RevealText, TiltCard, Parallax } from "../components/Effects";
 import { ArrowRight, Sparkles, Trophy, Code2, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/")({
