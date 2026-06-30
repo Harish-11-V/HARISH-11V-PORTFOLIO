@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { PageTransition } from "../components/Layout";
+import { TiltCard } from "../components/Effects";
 import { ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/projects")({
