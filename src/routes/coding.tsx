@@ -1,25 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { PageTransition } from "../components/Layout";
-import { Github, Code, Trophy, Award, Terminal, Zap } from "lucide-react";
+import { Github, Code, Linkedin } from "lucide-react";
 
 export const Route = createFileRoute("/coding")({
   head: () => ({
     meta: [
-      { title: "Coding Profiles — Harish Portfolio" },
-      { name: "description", content: "GitHub, LeetCode, SkillRack, Codeforces and more." },
+      { title: "Coding Profiles — Harish Kumar V" },
+      { name: "description", content: "Harish Kumar V on LeetCode, GitHub, and LinkedIn." },
     ],
   }),
   component: Coding,
 });
 
 const PROFILES = [
-  { name: "GitHub", handle: "@alexcarter", stat: "8.4k ★ · 240 repos", icon: Github, color: "from-zinc-400 to-zinc-700", href: "https://github.com" },
-  { name: "LeetCode", handle: "alexcarter", stat: "780 solved · Top 2%", icon: Code, color: "from-amber-400 to-orange-600", href: "https://leetcode.com" },
-  { name: "Codeforces", handle: "alexc", stat: "Expert · 1742", icon: Trophy, color: "from-blue-400 to-indigo-600", href: "https://codeforces.com" },
-  { name: "SkillRack", handle: "alex_c", stat: "1100 problems · Gold", icon: Award, color: "from-yellow-400 to-amber-600", href: "https://skillrack.com" },
-  { name: "HackerRank", handle: "alex.carter", stat: "5★ · Problem Solving", icon: Terminal, color: "from-emerald-400 to-green-600", href: "https://hackerrank.com" },
-  { name: "Kaggle", handle: "alexc", stat: "Notebooks Expert", icon: Zap, color: "from-cyan-400 to-teal-600", href: "https://kaggle.com" },
+  { name: "LeetCode", handle: "HARISH", stat: "Problem solving & DSA practice", icon: Code, color: "from-amber-400 to-orange-600", href: "https://leetcode.com" },
+  { name: "GitHub", handle: "HARISH", stat: "Open-source projects & experiments", icon: Github, color: "from-zinc-400 to-zinc-700", href: "https://github.com" },
+  { name: "LinkedIn", handle: "HARISH", stat: "Professional network & updates", icon: Linkedin, color: "from-blue-400 to-indigo-600", href: "https://linkedin.com" },
 ];
 
 function Coding() {
@@ -29,6 +26,9 @@ function Coding() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-sm font-semibold text-primary uppercase tracking-widest">Profiles</p>
           <h1 className="mt-3 text-5xl sm:text-6xl font-bold">Where I code.</h1>
+          <p className="mt-4 text-lg text-muted-foreground max-w-xl">
+            Find my work, problem-solving, and updates across platforms.
+          </p>
         </motion.div>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
