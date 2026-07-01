@@ -7,7 +7,7 @@ import { ExternalLink } from "lucide-react";
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Dev.Folio" },
+      { title: "Projects — Harish Portfolio" },
       { name: "description", content: "A selection of recent product, 3D, and tooling work." },
     ],
   }),

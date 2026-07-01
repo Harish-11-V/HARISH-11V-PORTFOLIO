@@ -6,7 +6,7 @@ import { Mail, Rocket } from "lucide-react";
 export const Route = createFileRoute("/cta")({
   head: () => ({
     meta: [
-      { title: "Let's build — Dev.Folio" },
+      { title: "Let's build — Harish Portfolio" },
       { name: "description", content: "Ready to start something great? Hire me for your next project." },
     ],
   }),

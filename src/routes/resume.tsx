@@ -6,8 +6,8 @@ import { Download, FileText, Eye } from "lucide-react";
 export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
-      { title: "Resume — Dev.Folio" },
-      { name: "description", content: "Download Alex Carter's developer resume." },
+      { title: "Resume — Harish Portfolio" },
+      { name: "description", content: "Download Harish's developer resume." },
     ],
   }),
   component: Resume,

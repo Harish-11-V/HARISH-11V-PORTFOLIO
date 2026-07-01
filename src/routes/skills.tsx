@@ -6,7 +6,7 @@ import { PageTransition } from "../components/Layout";
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Skills — Dev.Folio" },
+      { title: "Skills — Harish Portfolio" },
       { name: "description", content: "Tools, frameworks, and disciplines I work with daily." },
     ],
   }),
