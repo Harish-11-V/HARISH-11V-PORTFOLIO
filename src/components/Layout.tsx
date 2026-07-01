@@ -22,8 +22,8 @@ export function Nav() {
     <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4">
       <nav className="mx-auto max-w-6xl flex items-center justify-between rounded-2xl border border-white/10 bg-background/40 backdrop-blur-xl px-4 sm:px-6 py-3">
         <Link to="/" className="font-display font-bold text-lg">
-          <span className="text-gradient">dev</span>
-          <span className="text-foreground">.folio</span>
+          <span className="text-gradient">Harish</span>
+          <span className="text-foreground"> Kumar V</span>
         </Link>
         <ul className="hidden md:flex items-center gap-1">
           {NAV.map((item) => {

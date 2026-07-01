@@ -6,22 +6,35 @@ import { PageTransition } from "../components/Layout";
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Skills — Harish Portfolio" },
-      { name: "description", content: "Tools, frameworks, and disciplines I work with daily." },
+      { title: "Skills — Harish Kumar V" },
+      { name: "description", content: "Programming, web, version control, automation, design tools and soft skills of Harish Kumar V." },
     ],
   }),
   component: Skills,
 });
 
-const SKILLS = [
-  { name: "React / Next.js", value: 95 },
-  { name: "TypeScript", value: 92 },
-  { name: "Three.js / WebGL", value: 85 },
-  { name: "Framer Motion", value: 90 },
-  { name: "Node.js / Edge", value: 88 },
-  { name: "Design Systems", value: 93 },
-  { name: "Python / ML", value: 75 },
-  { name: "Rust", value: 65 },
+const TECHNICAL = [
+  { name: "Python", value: 92 },
+  { name: "Java", value: 85 },
+  { name: "C", value: 82 },
+  { name: "JavaScript", value: 88 },
+  { name: "React JS", value: 90 },
+  { name: "HTML / CSS", value: 92 },
+  { name: "Frontend (UI)", value: 88 },
+  { name: "API Handling", value: 85 },
+];
+
+const TOOLS = [
+  "Git", "GitHub", "VS Code", "UiPath Studio", "Canva",
+  "TensorFlow", "PyTorch", "OpenCV", "MongoDB", "Node.js", "Supabase", "Gemini API",
+];
+
+const SOFT = [
+  "Team Leadership & Mentoring",
+  "Adaptability",
+  "Time Management",
+  "Attention to Detail",
+  "Active Learner",
 ];
 
 function Counter({ to }: { to: number }) {
@@ -59,10 +72,14 @@ function Skills() {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-sm font-semibold text-primary uppercase tracking-widest">Toolkit</p>
           <h1 className="mt-3 text-5xl sm:text-6xl font-bold">Skills & stack.</h1>
+          <p className="mt-4 text-lg text-muted-foreground max-w-xl">
+            Programming, web development, automation, and the soft skills that hold projects together.
+          </p>
         </motion.div>
 
-        <div className="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-6">
-          {SKILLS.map((s, i) => (
+        <h2 className="mt-16 text-2xl font-bold">Programming & Web Development</h2>
+        <div className="mt-6 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+          {TECHNICAL.map((s, i) => (
             <motion.div
               key={s.name}
               initial={{ opacity: 0, x: -30 }}
@@ -77,6 +94,40 @@ function Skills() {
               <div className="h-2 rounded-full bg-white/5 overflow-hidden">
                 <Bar value={s.value} delay={i * 0.05} />
               </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <h2 className="mt-16 text-2xl font-bold">Tools, Frameworks & Automation</h2>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {TOOLS.map((t, i) => (
+            <motion.span
+              key={t}
+              initial={{ opacity: 0, scale: 0.7 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04, type: "spring", bounce: 0.4 }}
+              whileHover={{ y: -3, scale: 1.05 }}
+              className="px-4 py-2 rounded-full border border-white/10 bg-card/40 backdrop-blur-xl text-sm font-medium hover:border-primary/50 hover:text-primary transition"
+            >
+              {t}
+            </motion.span>
+          ))}
+        </div>
+
+        <h2 className="mt-16 text-2xl font-bold">Soft Skills & Project Management</h2>
+        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {SOFT.map((s, i) => (
+            <motion.div
+              key={s}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              whileHover={{ y: -4 }}
+              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-4 text-sm font-medium glow-hover"
+            >
+              {s}
             </motion.div>
           ))}
         </div>

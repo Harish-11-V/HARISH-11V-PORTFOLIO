@@ -45,8 +45,8 @@ function Resume() {
           <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-primary via-accent to-pink-500 opacity-50 blur-2xl group-hover:opacity-80 transition-opacity" />
           <div className="relative rounded-3xl border border-white/15 bg-card/70 backdrop-blur-xl p-8">
             <FileText size={42} className="text-primary mb-6" />
-            <h2 className="text-2xl font-bold">Alex_Carter_Resume.pdf</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Updated June 2026 · 2 pages · 240 KB</p>
+            <h2 className="text-2xl font-bold">Harish_Kumar_V_Resume.pdf</h2>
+            <p className="mt-2 text-sm text-muted-foreground">B.Tech AI & ML · Rajalakshmi Engineering College</p>
             <div className="mt-8 flex gap-3">
               <motion.a
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
