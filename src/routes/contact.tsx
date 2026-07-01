@@ -8,7 +8,7 @@ import { Check, Send } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Dev.Folio" },
+      { title: "Contact — Harish Portfolio" },
       { name: "description", content: "Send a message. I reply within 24 hours." },
     ],
   }),

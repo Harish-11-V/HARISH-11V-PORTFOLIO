@@ -6,7 +6,7 @@ import { Github, Code, Trophy, Award, Terminal, Zap } from "lucide-react";
 export const Route = createFileRoute("/coding")({
   head: () => ({
     meta: [
-      { title: "Coding Profiles — Dev.Folio" },
+      { title: "Coding Profiles — Harish Portfolio" },
       { name: "description", content: "GitHub, LeetCode, SkillRack, Codeforces and more." },
     ],
   }),

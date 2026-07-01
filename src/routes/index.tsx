@@ -8,7 +8,7 @@ import { ArrowRight, Sparkles, Trophy, Code2, Rocket } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dev.Folio — Hero" },
+      { title: "Harish Portfolio — Hero" },
       { name: "description", content: "Developer, designer, and builder of immersive web experiences." },
     ],
   }),
@@ -88,7 +88,7 @@ function Index() {
           </div>
           <div className="lg:col-span-3 space-y-5 text-muted-foreground text-lg leading-relaxed">
             <p>
-              Hi, I'm <span className="text-foreground font-semibold">Alex Carter</span>. For 6+ years I've shipped products at the intersection of engineering and design — from real-time 3D dashboards to AI-powered creative tools.
+              Hi, I'm <span className="text-foreground font-semibold">Harish</span>. For 6+ years I've shipped products at the intersection of engineering and design — from real-time 3D dashboards to AI-powered creative tools.
             </p>
             <p>
               I care about milliseconds, easing curves, and the small moments that make software feel alive.
