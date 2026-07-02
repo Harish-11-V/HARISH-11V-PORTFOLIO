@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -49,13 +50,16 @@ export function Nav() {
             );
           })}
         </ul>
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
       <AnimatePresence>
         {open && (
