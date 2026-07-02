@@ -56,9 +56,57 @@
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
   --ring: oklch(0.72 0.21 310);
-  --neon: oklch(0.75 0.22 310);
-  --neon-2: oklch(0.78 0.2 200);
-  --neon-3: oklch(0.82 0.18 150);
+  --neon-h: 310;
+  --neon-h2: 200;
+  --neon-h3: 150;
+  --neon: oklch(0.75 0.22 var(--neon-h));
+  --neon-2: oklch(0.78 0.2 var(--neon-h2));
+  --neon-3: oklch(0.82 0.18 var(--neon-h3));
+  --primary: oklch(0.72 0.21 var(--neon-h));
+  --accent: oklch(0.72 0.21 var(--neon-h2));
+  --ring: oklch(0.72 0.21 var(--neon-h));
+  animation: hue-cycle 14s linear infinite;
+}
+
+@property --neon-h {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 310;
+}
+@property --neon-h2 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 200;
+}
+@property --neon-h3 {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 150;
+}
+
+@keyframes hue-cycle {
+  0%   { --neon-h: 310; --neon-h2: 200; --neon-h3: 150; }
+  25%  { --neon-h: 25;  --neon-h2: 310; --neon-h3: 200; }
+  50%  { --neon-h: 150; --neon-h2: 25;  --neon-h3: 310; }
+  75%  { --neon-h: 200; --neon-h2: 150; --neon-h3: 25; }
+  100% { --neon-h: 310; --neon-h2: 200; --neon-h3: 150; }
+}
+
+.light {
+  --background: oklch(0.98 0.01 280);
+  --foreground: oklch(0.15 0.02 280);
+  --card: oklch(0.96 0.015 280);
+  --card-foreground: oklch(0.15 0.02 280);
+  --popover: oklch(0.96 0.015 280);
+  --popover-foreground: oklch(0.15 0.02 280);
+  --primary-foreground: oklch(0.98 0.005 280);
+  --secondary: oklch(0.92 0.02 280);
+  --secondary-foreground: oklch(0.15 0.02 280);
+  --muted: oklch(0.92 0.02 280);
+  --muted-foreground: oklch(0.4 0.02 280);
+  --accent-foreground: oklch(0.98 0.005 280);
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 8%);
 }
 
 .dark {
