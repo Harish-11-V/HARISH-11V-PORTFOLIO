@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { to: "/", label: "Home" },
