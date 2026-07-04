@@ -19,27 +19,25 @@ const options: ISourceOptions = {
   interactivity: {
     events: {
       onHover: { enable: true, mode: "grab" },
-      onClick: { enable: true, mode: "push" },
     },
     modes: {
-      grab: { distance: 180, links: { opacity: 0.6 } },
-      push: { quantity: 3 },
+      grab: { distance: 160, links: { opacity: 0.35 } },
     },
   },
   particles: {
-    color: { value: ["#c084fc", "#67e8f9", "#86efac"] },
+    color: { value: ["#efe7d6", "#e56a3a"] },
     links: {
       enable: true,
-      color: "#9333ea",
-      distance: 140,
-      opacity: 0.25,
+      color: "#efe7d6",
+      distance: 130,
+      opacity: 0.08,
       width: 1,
     },
-    move: { enable: true, speed: 0.8, outModes: { default: "out" } },
-    number: { value: 70, density: { enable: true } },
-    opacity: { value: { min: 0.2, max: 0.7 } },
+    move: { enable: true, speed: 0.35, outModes: { default: "out" } },
+    number: { value: 42, density: { enable: true } },
+    opacity: { value: { min: 0.15, max: 0.45 } },
     shape: { type: "circle" },
-    size: { value: { min: 1, max: 3 } },
+    size: { value: { min: 0.6, max: 1.6 } },
   },
 };
 
