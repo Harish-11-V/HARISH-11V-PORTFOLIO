@@ -29,31 +29,31 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={toggle}
-      whileHover={{ scale: 1.1, rotate: 15 }}
-      whileTap={{ scale: 0.9, rotate: -20 }}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.92 }}
       aria-label="Toggle theme"
-      className="relative w-9 h-9 grid place-items-center rounded-full border border-white/10 bg-background/40 backdrop-blur-xl text-foreground hover:text-[var(--color-neon)] transition-colors overflow-hidden"
+      className="relative w-9 h-9 grid place-items-center border border-foreground/20 text-foreground hover:text-copper hover:border-copper/60 transition-colors overflow-hidden"
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === "dark" ? (
           <motion.span
             key="moon"
-            initial={{ y: -20, opacity: 0, rotate: -90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: 20, opacity: 0, rotate: 90 }}
-            transition={{ duration: 0.35 }}
+            initial={{ y: -16, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 16, opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <Moon size={16} />
+            <Moon size={14} />
           </motion.span>
         ) : (
           <motion.span
             key="sun"
-            initial={{ y: -20, opacity: 0, rotate: -90 }}
-            animate={{ y: 0, opacity: 1, rotate: 0 }}
-            exit={{ y: 20, opacity: 0, rotate: 90 }}
-            transition={{ duration: 0.35 }}
+            initial={{ y: -16, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 16, opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <Sun size={16} />
+            <Sun size={14} />
           </motion.span>
         )}
       </AnimatePresence>
