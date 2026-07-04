@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { PageTransition } from "../components/Layout";
+import { PageTransition, PageMasthead } from "../components/Layout";
 
 export const Route = createFileRoute("/skills")({
   head: () => ({
@@ -41,7 +41,7 @@ function Counter({ to }: { to: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => `${Math.round(v)}%`);
+  const rounded = useTransform(count, (v) => `${Math.round(v)}`);
 
   useEffect(() => {
     if (inView) {
@@ -53,85 +53,128 @@ function Counter({ to }: { to: number }) {
   return <motion.span ref={ref}>{rounded}</motion.span>;
 }
 
-function Bar({ value, delay }: { value: number; delay: number }) {
-  return (
-    <motion.div
-      initial={{ width: 0 }}
-      whileInView={{ width: `${value}%` }}
-      viewport={{ once: true }}
-      transition={{ duration: 1.4, delay, ease: [0.22, 1, 0.36, 1] as const }}
-      className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-pink-400 glow-border"
-    />
-  );
-}
-
 function Skills() {
   return (
     <PageTransition variant="blur">
-      <section className="mx-auto max-w-5xl">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Toolkit</p>
-          <h1 className="mt-3 text-5xl sm:text-6xl font-bold">Skills & stack.</h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-xl">
-            Programming, web development, automation, and the soft skills that hold projects together.
-          </p>
-        </motion.div>
+      <div className="mx-auto max-w-[1400px]">
+        <PageMasthead
+          eyebrow="Chapter 03 · The Craft"
+          index="03"
+          title="Skills &"
+          italic="stack."
+          meta="A LIVING INVENTORY"
+          lede="Programming, web development, automation — and the soft skills that hold projects together."
+        />
 
-        <h2 className="mt-16 text-2xl font-bold">Programming & Web Development</h2>
-        <div className="mt-6 grid sm:grid-cols-2 gap-x-10 gap-y-6">
-          {TECHNICAL.map((s, i) => (
-            <motion.div
-              key={s.name}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <div className="flex items-baseline justify-between mb-2">
-                <span className="font-semibold">{s.name}</span>
-                <span className="text-primary font-mono text-sm"><Counter to={s.value} /></span>
-              </div>
-              <div className="h-2 rounded-full bg-white/5 overflow-hidden">
-                <Bar value={s.value} delay={i * 0.05} />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Programming */}
+        <section className="mt-20 grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-3">
+            <span className="eyebrow">§ 3.1</span>
+            <h2 className="mt-3 serif text-3xl leading-tight">
+              Programming
+              <br />
+              <span className="serif-italic text-copper">& Web.</span>
+            </h2>
+            <p className="mt-4 text-xs font-mono text-muted-foreground">
+              Self-scored competency<br />on shipping work.
+            </p>
+          </div>
+          <div className="col-span-12 md:col-span-9 border-t border-foreground/15">
+            {TECHNICAL.map((s, i) => (
+              <motion.div
+                key={s.name}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="grid grid-cols-12 gap-4 items-center py-5 border-b border-foreground/15 group"
+              >
+                <span className="col-span-1 font-mono text-[10px] text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="col-span-4 serif text-xl group-hover:text-copper transition">{s.name}</span>
+                <div className="col-span-5 h-px bg-foreground/15 relative overflow-visible">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${s.value}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.4, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-y-[-1px] left-0 border-t-2 border-copper"
+                  />
+                </div>
+                <span className="col-span-2 text-right serif-italic text-copper text-xl">
+                  <Counter to={s.value} />
+                  <span className="text-xs align-top">%</span>
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
-        <h2 className="mt-16 text-2xl font-bold">Tools, Frameworks & Automation</h2>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {TOOLS.map((t, i) => (
-            <motion.span
-              key={t}
-              initial={{ opacity: 0, scale: 0.7 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04, type: "spring", bounce: 0.4 }}
-              whileHover={{ y: -3, scale: 1.05 }}
-              className="px-4 py-2 rounded-full border border-white/10 bg-card/40 backdrop-blur-xl text-sm font-medium hover:border-primary/50 hover:text-primary transition"
-            >
-              {t}
-            </motion.span>
-          ))}
-        </div>
+        {/* Tools — marquee row */}
+        <section className="mt-24 grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-3">
+            <span className="eyebrow">§ 3.2</span>
+            <h2 className="mt-3 serif text-3xl leading-tight">
+              Tools &
+              <br />
+              <span className="serif-italic text-copper">automation.</span>
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-9">
+            <div className="flex flex-wrap gap-x-8 gap-y-4">
+              {TOOLS.map((t, i) => (
+                <motion.span
+                  key={t}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.04 }}
+                  whileHover={{ y: -3 }}
+                  className="serif-italic text-3xl sm:text-4xl leading-none text-foreground/80 hover:text-copper transition cursor-default"
+                >
+                  {t}
+                  <span className="serif text-copper">.</span>
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <h2 className="mt-16 text-2xl font-bold">Soft Skills & Project Management</h2>
-        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {SOFT.map((s, i) => (
-            <motion.div
-              key={s}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-4 text-sm font-medium glow-hover"
-            >
-              {s}
-            </motion.div>
-          ))}
+        {/* Soft skills */}
+        <section className="mt-24 grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-3">
+            <span className="eyebrow">§ 3.3</span>
+            <h2 className="mt-3 serif text-3xl leading-tight">
+              Soft skills &
+              <br />
+              <span className="serif-italic text-copper">management.</span>
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-9 grid sm:grid-cols-2 gap-x-6 gap-y-0 border-t border-foreground/15">
+            {SOFT.map((s, i) => (
+              <motion.div
+                key={s}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="flex items-baseline gap-4 py-5 border-b border-foreground/15 group hover:pl-2 transition-all"
+              >
+                <span className="font-mono text-[10px] text-copper w-6">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="serif-italic text-xl group-hover:text-copper transition">{s}</span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-20 flex items-baseline justify-between">
+          <span className="serif-italic text-2xl">— always in revision.</span>
+          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">Ed. MMXXVI</span>
         </div>
-      </section>
+      </div>
     </PageTransition>
   );
 }

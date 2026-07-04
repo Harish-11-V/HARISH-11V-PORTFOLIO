@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { HeroScene } from "../components/HeroScene";
 import { PageTransition } from "../components/Layout";
-import { Magnetic, RevealText, Parallax } from "../components/Effects";
-import { ArrowRight, Sparkles, Trophy, GraduationCap, Award, Briefcase, Mail, Phone, MapPin } from "lucide-react";
+import { Magnetic, Parallax } from "../components/Effects";
+import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,228 +15,305 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-import type { Variants } from "framer-motion";
-const stagger: Variants = {
-  animate: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
-};
-const fadeUp: Variants = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
-};
+const EDUCATION = [
+  { school: "Rajalakshmi Engineering College, Chennai", degree: "B.Tech Artificial Intelligence & Machine Learning", period: "Sep 2023 — Present", score: "CGPA 8.52" },
+  { school: "Christ The King Matric Higher Secondary School, Kumbakonam", degree: "Higher Secondary — XII", period: "Jul 2022 — Apr 2023", score: "92.83%" },
+  { school: "Christ The King Matric Higher Secondary School, Kumbakonam", degree: "Secondary — X", period: "Jun 2020 — Apr 2021", score: "89%" },
+];
+
+const EXPERIENCE = [
+  { role: "AI Engineering Intern", org: "L&T Technology Services", period: "Dec 2025 — Feb 2026", desc: "AI-driven solutions integrating APIs, frontend-backend systems, and workflow automation." },
+  { role: "Secretary — IEEE Society", org: "Rajalakshmi Engineering College", period: "Aug 2025 — Present", desc: "Managed documentation, coordinated meetings, facilitated communication among members." },
+  { role: "Event Management Lead", org: "Phoenix Club, REC", period: "Aug 2025 — Present", desc: "Led planning and execution of college events; supervised teams and timelines." },
+  { role: "Junior Associate", org: "IEEE CIS Society, REC", period: "Oct 2024 — Aug 2025", desc: "Organized technical events, coordinated logistics, ensured smooth execution." },
+  { role: "Internship Trainee", org: "NIT Silchar", period: "Jan 2025 — Mar 2025", desc: "Implemented AI/ML models for medical imaging projects." },
+  { role: "Internship Trainee", org: "InternEzy", period: "Nov 2024 — Jan 2025", desc: "Cloud Computing with AWS — deployment and services." },
+  { role: "Internship Trainee", org: "ReTech Solutions Pvt. Ltd, Chennai", period: "Dec 2024", desc: "IoT and real-time sensor data projects." },
+];
+
+const ACCOMPLISHMENTS = [
+  { year: "2026", title: "Fortinet Certifications", desc: "Fortinet Certified Fundamentals & Associate — Cybersecurity, Fortinet Training Institute." },
+  { year: "2025", title: "Paper — LMS Using Generative AI", desc: "Presented at Chennai Institute of Technology with a team of 3." },
+  { year: "2025", title: "NPTEL — 3+ Courses & Gold Badge", desc: "Completed multiple NPTEL courses; awarded one Gold Badge." },
+  { year: "2025", title: "Paper — Pneumonia Detection with ViT + MC Dropout", desc: "Presented online at VFSTR University." },
+  { year: "2024", title: "IEEE Breadths Hackathon — 2nd Prize", desc: "Theme: Environmental Monitoring · Team of 4." },
+];
 
 function Index() {
   return (
     <PageTransition variant="fade">
-      <section className="relative mx-auto max-w-6xl grid lg:grid-cols-2 gap-10 items-center min-h-[80vh]">
-        <motion.div variants={stagger} initial="initial" animate="animate" className="relative z-10">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-xs text-muted-foreground mb-6">
-            <Sparkles size={14} className="text-primary" />
-            Prefinal year · Open to internships & collaborations
-          </motion.div>
-          <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05]">
-            Hi, I'm <span className="text-gradient">Harish Kumar V</span><br />
-            AI/ML developer.
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 text-lg text-muted-foreground max-w-lg">
-            <RevealText text="Artificial Intelligence & Machine Learning student building real-world, socio-impactful products across AI, ML, Frontend, IoT, and Core Programming." />
+      {/* ---------- HERO ---------- */}
+      <section className="relative mx-auto max-w-[1400px] grid grid-cols-12 gap-6 items-start min-h-[80vh]">
+        {/* Top rail */}
+        <div className="col-span-12 flex items-center gap-4 mb-8">
+          <span className="eyebrow">Portfolio · MMXXVI</span>
+          <div className="flex-1 h-px bg-foreground/20" />
+          <span className="text-[10px] font-mono tracking-widest text-muted-foreground hidden sm:inline">
+            AI · ML · FRONTEND · IoT
+          </span>
+        </div>
+
+        {/* Big italic serif headline — spans wide, breaks the grid */}
+        <div className="col-span-12 lg:col-span-8 relative">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="serif-italic text-copper text-lg mb-6"
+          >
+            — a portfolio in seven chapters.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="serif text-[clamp(3.5rem,11vw,10rem)] leading-[0.88] tracking-[-0.04em]"
+          >
+            Harish
+            <br />
+            <span className="serif-italic pl-[8vw]">Kumar V.</span>
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-10 max-w-md text-[15px] leading-relaxed text-muted-foreground"
+          >
+            Artificial Intelligence & Machine Learning student at{" "}
+            <span className="text-foreground">Rajalakshmi Engineering College</span>, Chennai.
+            I build real-world, socio-impactful products across AI, ML, Frontend, IoT
+            and Core Programming — from RAG assistants to ViT-powered medical imaging.
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 flex flex-wrap gap-3"
+          >
             <Magnetic>
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground glow-hover"
+                className="group inline-flex items-center gap-3 border border-copper bg-copper px-6 py-3 text-sm text-primary-foreground hover:bg-transparent hover:text-copper transition-colors"
               >
-                Hire me
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                <span className="font-mono text-[10px] tracking-widest">01</span>
+                <span className="serif-italic text-base">Commission a project</span>
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </Magnetic>
-            <Magnetic strength={0.25}>
+            <Magnetic strength={0.2}>
               <Link
                 to="/projects"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground hover:bg-white/5"
+                className="inline-flex items-center gap-3 border border-foreground/25 px-6 py-3 text-sm hover:border-copper hover:text-copper transition-colors"
               >
-                View work
+                <span className="font-mono text-[10px] tracking-widest">02</span>
+                <span className="serif-italic text-base">Browse the catalogue</span>
               </Link>
             </Magnetic>
           </motion.div>
+        </div>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4 text-xs text-muted-foreground">
-            <a href="mailto:231501057@rajalakshmi.edu.in" className="inline-flex items-center gap-1.5 hover:text-foreground transition">
-              <Mail size={13} /> 231501057@rajalakshmi.edu.in
+        {/* Hero scene — offset, smaller, framed */}
+        <div className="col-span-12 lg:col-span-4 lg:mt-8">
+          <Parallax offset={40}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.1, delay: 0.3 }}
+              className="relative h-[360px] lg:h-[520px] border border-foreground/15"
+            >
+              <span className="absolute -top-3 left-4 bg-background px-2 eyebrow">Fig. 01 — neural mesh</span>
+              <HeroScene />
+              <span className="absolute -bottom-3 right-4 bg-background px-2 text-[10px] font-mono text-muted-foreground">
+                three.js · 2026
+              </span>
+            </motion.div>
+          </Parallax>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-8 space-y-2 text-[13px] font-mono"
+          >
+            <a href="mailto:231501057@rajalakshmi.edu.in" className="flex items-center gap-2 text-muted-foreground hover:text-copper transition">
+              <Mail size={12} /> 231501057@rajalakshmi.edu.in
             </a>
-            <a href="tel:+916374304895" className="inline-flex items-center gap-1.5 hover:text-foreground transition">
-              <Phone size={13} /> +91 63743 04895
+            <a href="tel:+916374304895" className="flex items-center gap-2 text-muted-foreground hover:text-copper transition">
+              <Phone size={12} /> +91 63743 04895
             </a>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin size={13} /> Chennai, India
+            <span className="flex items-center gap-2 text-muted-foreground">
+              <MapPin size={12} /> Chennai · India
             </span>
           </motion.div>
-        </motion.div>
-
-        <Parallax offset={40}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
-          >
-            <HeroScene />
-          </motion.div>
-        </Parallax>
-      </section>
-
-      {/* About / Summary */}
-      <section className="mx-auto max-w-6xl mt-32">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="grid lg:grid-cols-5 gap-10"
-        >
-          <div className="lg:col-span-2">
-            <p className="text-sm font-semibold text-primary uppercase tracking-widest">About</p>
-            <h2 className="mt-3 text-4xl sm:text-5xl font-bold">A daily learner, driven by impact.</h2>
-          </div>
-          <div className="lg:col-span-3 space-y-5 text-muted-foreground text-lg leading-relaxed">
-            <p>
-              I'm <span className="text-foreground font-semibold">Harish Kumar V</span>, a Prefinal year <span className="text-foreground">Artificial Intelligence & Machine Learning</span> student at Rajalakshmi Engineering College, Chennai, with strong foundations in AI, ML, Frontend Development, IoT and Core Programming (Java, Python, C).
-            </p>
-            <p>
-              I actively build projects that solve <span className="text-foreground">real-world</span> and <span className="text-foreground">socio-impactful problems</span>, blending technical expertise with end-to-end development — from RAG-based LLM assistants to ViT-powered medical imaging.
-            </p>
-            <p>
-              A daily learner with resilient leadership skills which create and inspire a positive change in society.
-            </p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          variants={stagger}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {[
-            { icon: GraduationCap, label: "CGPA · B.Tech AI & ML", value: "8.52" },
-            { icon: Briefcase, label: "Internships & roles", value: "6+" },
-            { icon: Trophy, label: "Hackathon (IEEE Breadths)", value: "2nd" },
-            { icon: Award, label: "Certifications & papers", value: "5+" },
-          ].map(({ icon: Icon, label, value }) => (
-            <motion.div
-              key={label}
-              variants={fadeUp}
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 glow-hover"
-            >
-              <Icon className="text-primary mb-4" size={24} />
-              <div className="text-3xl font-bold">{value}</div>
-              <div className="text-sm text-muted-foreground mt-1">{label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* Education */}
-      <section className="mx-auto max-w-6xl mt-32">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Education</p>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">Where I've studied.</h2>
-        </motion.div>
-        <div className="mt-10 space-y-4">
-          {[
-            { school: "Rajalakshmi Engineering College, Chennai", degree: "B.Tech Artificial Intelligence & Machine Learning", period: "September 2023 — Present", score: "CGPA: 8.52" },
-            { school: "Christ The King Matric Boys Higher Secondary School, Kumbakonam", degree: "Higher Secondary (XII)", period: "July 2022 — April 2023", score: "92.83%" },
-            { school: "Christ The King Matric Boys Higher Secondary School, Kumbakonam", degree: "Secondary (X)", period: "June 2020 — April 2021", score: "89%" },
-          ].map((e, i) => (
-            <motion.div
-              key={e.degree + i}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 glow-hover"
-            >
-              <div>
-                <h3 className="font-semibold text-lg">{e.school}</h3>
-                <p className="text-primary text-sm italic mt-0.5">{e.degree}</p>
-              </div>
-              <div className="text-sm text-muted-foreground sm:text-right">
-                <div className="italic">{e.period}</div>
-                <div className="text-foreground font-semibold mt-0.5">{e.score}</div>
-              </div>
-            </motion.div>
-          ))}
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="mx-auto max-w-6xl mt-32">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Experience</p>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">Professional experience.</h2>
-        </motion.div>
-        <div className="mt-10 grid md:grid-cols-2 gap-4">
-          {[
-            { role: "AI Engineering Intern", org: "L&T Technology Services, DLF Cybercity", period: "Dec 2025 — Feb 2026", desc: "Developed AI-driven solutions integrating APIs, frontend-backend systems, and workflow automation." },
-            { role: "Secretary, IEEE Society", org: "Rajalakshmi Engineering College", period: "Aug 2025 — Present", desc: "Managed documentation, coordinated meetings, and facilitated communication among members." },
-            { role: "Event Management Lead, Phoenix Club", org: "Rajalakshmi Engineering College", period: "Aug 2025 — Present", desc: "Led planning and execution of college events, supervising teams and timelines." },
-            { role: "Event Management Junior Associate, IEEE CIS Society", org: "Rajalakshmi Engineering College", period: "Oct 2024 — Aug 2025", desc: "Assisted in organizing technical events, coordinating logistics, and ensuring smooth execution." },
-            { role: "Internship Trainee", org: "National Institute of Technology, Silchar", period: "Jan 2025 — Mar 2025", desc: "Implemented AI/ML models for medical imaging projects." },
-            { role: "Internship Trainee", org: "InternEzy", period: "Nov 2024 — Jan 2025", desc: "Gained hands-on experience in Cloud Computing with AWS, focusing on deployment and services." },
-            { role: "Internship Trainee", org: "ReTech Solutions Pvt. Limited, Chennai", period: "Dec 2024", desc: "Worked on IoT and real-time sensor data projects." },
-          ].map((x, i) => (
-            <motion.div
+      {/* ---------- CHAPTER 01 · ABOUT ---------- */}
+      <section className="mx-auto max-w-[1400px] mt-40 relative">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-4">
+            <span className="eyebrow">Chapter 01</span>
+            <h2 className="mt-6 serif text-5xl leading-[0.95]">
+              A daily learner,
+              <br />
+              <span className="serif-italic text-copper">driven by impact.</span>
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-7 md:col-start-6 space-y-6 text-[15px] leading-relaxed text-muted-foreground">
+            <p className="serif-italic text-2xl text-foreground leading-snug">
+              &ldquo;End-to-end engineering — from a whiteboard sketch to a
+              shipped, measured product.&rdquo;
+            </p>
+            <p>
+              I&rsquo;m <span className="text-foreground">Harish Kumar V</span>, prefinal year
+              student of <span className="text-foreground">Artificial Intelligence & Machine Learning</span> at
+              Rajalakshmi Engineering College, Chennai. Foundations in AI, ML,
+              Frontend Development, IoT, and Core Programming — Java, Python, C.
+            </p>
+            <p>
+              I build projects that solve real-world and socio-impactful problems,
+              blending technical depth with end-to-end delivery. Resilient
+              leadership, a bias for shipping, and a daily-learner attitude.
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-foreground/15">
+              {[
+                { k: "CGPA", v: "8.52" },
+                { k: "Roles", v: "7+" },
+                { k: "Hackathon", v: "2nd" },
+                { k: "Certs & Papers", v: "5+" },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.k}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <div className="serif text-4xl text-foreground">{s.v}</div>
+                  <div className="mt-2 eyebrow">{s.k}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- CHAPTER 02 · EDUCATION ---------- */}
+      <section className="mx-auto max-w-[1400px] mt-40 relative">
+        <div className="index-number absolute -top-8 right-0">02</div>
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-3">
+            <span className="eyebrow">Chapter 02</span>
+            <h2 className="mt-6 serif text-4xl">
+              Formation<span className="serif-italic text-copper">.</span>
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-9 space-y-0 border-t border-foreground/15">
+            {EDUCATION.map((e, i) => (
+              <motion.div
+                key={e.degree + i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group grid grid-cols-12 gap-4 py-6 border-b border-foreground/15 hover:bg-foreground/[0.03] transition-colors px-2 -mx-2"
+              >
+                <span className="col-span-2 font-mono text-xs text-muted-foreground pt-1">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="col-span-12 sm:col-span-6">
+                  <h3 className="serif-italic text-xl group-hover:text-copper transition">{e.degree}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{e.school}</p>
+                </div>
+                <div className="col-span-6 sm:col-span-2 text-xs font-mono text-muted-foreground pt-1">{e.period}</div>
+                <div className="col-span-6 sm:col-span-2 text-right serif text-2xl text-copper">{e.score}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- CHAPTER 03 · EXPERIENCE ---------- */}
+      <section className="mx-auto max-w-[1400px] mt-40 relative">
+        <div className="index-number absolute -top-8 left-0">03</div>
+        <div className="grid grid-cols-12 gap-6 mb-10">
+          <div className="col-span-12 md:col-span-8 md:col-start-4">
+            <span className="eyebrow">Chapter 03</span>
+            <h2 className="mt-6 serif text-5xl">
+              Practice — <span className="serif-italic text-copper">seven roles.</span>
+            </h2>
+          </div>
+        </div>
+        <div className="grid grid-cols-12 gap-6">
+          {EXPERIENCE.map((x, i) => (
+            <motion.article
               key={x.role + i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 glow-hover"
+              transition={{ delay: i * 0.05 }}
+              className={`col-span-12 sm:col-span-6 lg:col-span-4 border border-foreground/15 p-6 hover:border-copper/60 transition-colors ${
+                i % 3 === 1 ? "lg:translate-y-8" : ""
+              } ${i % 3 === 2 ? "lg:-translate-y-4" : ""}`}
             >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="font-bold uppercase text-sm tracking-wide">{x.role}</h3>
-                  <p className="text-primary text-sm italic mt-1">{x.org}</p>
-                </div>
-                <span className="text-xs text-muted-foreground italic shrink-0">{x.period}</span>
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="font-mono text-[10px] tracking-widest text-copper">
+                  {String(i + 1).padStart(2, "0")} / 07
+                </span>
+                <span className="text-[10px] font-mono text-muted-foreground">{x.period}</span>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{x.desc}</p>
-            </motion.div>
+              <h3 className="mt-5 serif text-2xl leading-tight">{x.role}</h3>
+              <p className="mt-1 serif-italic text-sm text-copper">{x.org}</p>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{x.desc}</p>
+            </motion.article>
           ))}
         </div>
       </section>
 
-      {/* Accomplishments */}
-      <section className="mx-auto max-w-6xl mt-32">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Accomplishments</p>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">Wins & recognitions.</h2>
-        </motion.div>
-        <div className="mt-10 grid sm:grid-cols-2 gap-4">
-          {[
-            { title: "Fortinet Certification (2026)", desc: "Earned Fortinet Certified Fundamentals & Fortinet Certified Associate in Fortinet Training Institute (Cybersecurity)." },
-            { title: "Paper Presentation (2025)", desc: "Presented a paper on \"LMS Using Generative AI\" at Chennai Institute Of Technology with a team of 3." },
-            { title: "NPTEL Certification (2025)", desc: "Completed 3+ NPTEL courses & received one Gold Badge." },
-            { title: "Paper Presentation (2025)", desc: "Presented a paper on \"Pneumonia Detection with ViT + MC Dropout\" at VFSTR University via online." },
-            { title: "Hackathon Winner (2024)", desc: "2nd Prize winner, IEEE Breadths hackathon under the theme \"Environmental Monitoring\" with a team of 4." },
-          ].map((a, i) => (
-            <motion.div
-              key={a.title + i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 glow-hover"
-            >
-              <Award className="text-primary mb-3" size={22} />
-              <h3 className="font-bold">{a.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{a.desc}</p>
-            </motion.div>
-          ))}
+      {/* ---------- CHAPTER 04 · ACCOMPLISHMENTS ---------- */}
+      <section className="mx-auto max-w-[1400px] mt-40 relative">
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-4">
+            <span className="eyebrow">Chapter 04</span>
+            <h2 className="mt-6 serif text-4xl leading-tight">
+              Wins &<br />
+              <span className="serif-italic text-copper">recognitions.</span>
+            </h2>
+            <div className="index-number mt-6 hidden md:block !text-[10rem] leading-[0.85]">04</div>
+          </div>
+          <div className="col-span-12 md:col-span-8 border-t border-foreground/15">
+            {ACCOMPLISHMENTS.map((a, i) => (
+              <motion.div
+                key={a.title + i}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group grid grid-cols-12 gap-4 py-7 border-b border-foreground/15"
+              >
+                <div className="col-span-2 serif-italic text-copper text-3xl">{a.year}</div>
+                <div className="col-span-10">
+                  <h3 className="serif text-2xl group-hover:text-copper transition copper-underline inline-block">
+                    {a.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xl">{a.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Footer signature ---------- */}
+      <section className="mx-auto max-w-[1400px] mt-40">
+        <hr className="hairline" />
+        <div className="mt-8 flex flex-wrap items-baseline justify-between gap-4">
+          <span className="serif-italic text-2xl">— fin de portfolio, chapitre I.</span>
+          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">
+            © MMXXVI · CHENNAI · IN
+          </span>
         </div>
       </section>
     </PageTransition>
