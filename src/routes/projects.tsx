@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PageTransition, PageMasthead } from "../components/Layout";
-import { ArrowUpRight } from "lucide-react";
+import { PageTransition } from "../components/Layout";
+import { TiltCard } from "../components/Effects";
+import { ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
       { title: "Projects — Harish Kumar V" },
-      { name: "description", content: "AI, ML, and full-stack projects by Harish Kumar V — EduEase, Gen-AI Material Assistant, EduMate-AI, Pneumonia Detection with ViT." },
+      { name: "description", content: "AI, ML, and full-stack projects built by Harish Kumar V — EduEase, Gen-AI Material Assistant, EduMate-AI, Pneumonia Detection with ViT." },
     ],
   }),
   component: Projects,
@@ -15,141 +16,71 @@ export const Route = createFileRoute("/projects")({
 
 const PROJECTS = [
   {
-    n: "01",
-    title: "EduEase",
-    subtitle: "Interactive OD Approval System",
-    year: "2025",
-    desc: "Digital platform that automates OD leave management — student submission with proof upload, faculty dashboards, real-time notifications, report generation.",
-    metrics: [
-      { k: "Processing", v: "70% faster" },
-      { k: "Efficiency", v: "+60%" },
-      { k: "Accuracy", v: "90%" },
-    ],
-    stack: ["React.js", "MongoDB", "Node.js"],
+    title: "EduEase — Interactive OD Approval",
+    desc: "Digital platform that revolutionizes OD leave management by automating request & approval workflows — student submission with proof upload, faculty dashboards, real-time notifications & report generation. Achieved 70% faster processing, 60% improved faculty efficiency & 90% accuracy.",
+    tag: "React.js · MongoDB · Node.js",
+    color: "from-fuchsia-500 to-purple-600",
   },
   {
-    n: "02",
     title: "Gen-AI Material Assistant",
-    subtitle: "RAG-based decision engine for NPD",
-    year: "2026",
-    desc: "GenAI-powered material assistant using RAG-based LLM/NLP. Multi-stage criteria decision engine — design, mechanical, compliance, cost — with AI ranking, dashboards, and an interactive RAG chatbot.",
-    metrics: [
-      { k: "Design weight", v: "35%" },
-      { k: "Effort saved", v: "~25–30%" },
-      { k: "NPD accuracy", v: "↑" },
-    ],
-    stack: ["React 18", "TypeScript", "Supabase", "Gemini API"],
+    desc: "GenAI-powered Material Assistant automation using a RAG-based LLM/NLP architecture with React 18 + TypeScript, Supabase, and Gemini API/LLMs. Multi-stage criteria decision engine (35% design, 30% mechanical, 20% compliance, 15% cost) with AI ranking, dashboards, and an interactive RAG chatbot — reducing evaluation effort ~25–30% while improving NPD decision accuracy.",
+    tag: "React 18 · TypeScript · Supabase · Gemini",
+    color: "from-cyan-400 to-blue-600",
   },
   {
-    n: "03",
-    title: "EduMate",
-    subtitle: "AI-Powered Adaptive Learning",
-    year: "2025",
-    desc: "Adaptive learning platform for personalized education. TensorFlow / PyTorch for AI recommendations, OpenCV + WebRTC for real-time feedback, React interface, Twilio + AI chatbot.",
-    metrics: [
-      { k: "AI accuracy", v: "80%" },
-      { k: "Engagement", v: "+75%" },
-      { k: "Task time", v: "60% ↓" },
-    ],
-    stack: ["Python", "TensorFlow", "PyTorch", "OpenCV", "React"],
+    title: "EduMate — AI Powered Adaptive Learning",
+    desc: "Adaptive learning platform for personalized education and skill enhancement. Python + TensorFlow / PyTorch for AI recommendations (80% accuracy), OpenCV + WebRTC for real-time feedback (75% engagement lift), React interface (60% faster task completion), Twilio + AI chatbot for 70% faster responsiveness.",
+    tag: "Python · TensorFlow · PyTorch · OpenCV · React",
+    color: "from-emerald-400 to-teal-600",
   },
   {
-    n: "04",
-    title: "Pneumonia Detection",
-    subtitle: "ViT + MC Dropout + Active Learning",
-    year: "2025",
-    desc: "Deep learning framework for pneumonia diagnosis from chest X-rays. Vision Transformer with Monte Carlo Dropout and Active Learning — outperforms ResNet-50 while cutting labeling effort.",
-    metrics: [
-      { k: "Accuracy", v: "94.1%" },
-      { k: "Sensitivity", v: "96%" },
-      { k: "AUC", v: "0.98" },
-    ],
-    stack: ["Python", "PyTorch", "ViT", "OpenCV"],
+    title: "Pneumonia Detection — ViT + MC Dropout",
+    desc: "Deep learning framework using Vision Transformer, Monte Carlo Dropout, and Active Learning for automated pneumonia diagnosis from chest X-rays. 94.1% accuracy, 96% sensitivity, 0.98 AUC — outperforming ResNet-50. 85% predictions >90% confidence; active learning pushed performance to 89.26% while cutting labeling effort.",
+    tag: "Python · PyTorch · ViT · OpenCV",
+    color: "from-orange-400 to-pink-600",
   },
 ];
 
 function Projects() {
   return (
     <PageTransition variant="curtain">
-      <div className="mx-auto max-w-[1400px]">
-        <PageMasthead
-          eyebrow="Chapter 02 · Selected Works"
-          index="02"
-          title="Selected"
-          italic="projects."
-          meta="04 ENTRIES · 2024–2026"
-          lede="End-to-end products across AI, ML and full-stack — built to solve real-world & socio-impactful problems."
-        />
+      <section className="mx-auto max-w-6xl">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Work</p>
+          <h1 className="mt-3 text-5xl sm:text-6xl font-bold">Selected projects.</h1>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
+            End-to-end products across AI, ML, and full-stack — built to solve real-world & socio-impactful problems.
+          </p>
+        </motion.div>
 
-        <div className="mt-16 space-y-0">
+        <div className="mt-12 grid sm:grid-cols-2 gap-5">
           {PROJECTS.map((p, i) => (
-            <motion.a
+            <motion.div
               key={p.title}
-              href="#"
               initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: i * 0.05 }}
-              className="group block border-b border-foreground/15 py-10 relative"
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08, duration: 0.6 }}
             >
-              <div className="grid grid-cols-12 gap-4 items-start">
-                <div className="col-span-2 md:col-span-1">
-                  <span className="serif-italic text-copper text-3xl">{p.n}</span>
-                </div>
-
-                <div className="col-span-10 md:col-span-6">
-                  <h3 className="serif text-4xl sm:text-5xl leading-[0.95] group-hover:text-copper transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 serif-italic text-lg text-muted-foreground">
-                    {p.subtitle}
-                  </p>
-                  <p className="mt-5 text-sm text-muted-foreground leading-relaxed max-w-xl">
-                    {p.desc}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-muted-foreground">
-                    {p.stack.map((s) => (
-                      <span key={s} className="uppercase tracking-widest">· {s}</span>
-                    ))}
+              <TiltCard className="group relative rounded-3xl border border-white/10 bg-card/40 backdrop-blur-xl p-6 overflow-hidden block h-full">
+                <a href="#" className="block">
+                  <div className={`absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br ${p.color} opacity-25 blur-3xl group-hover:opacity-70 transition-opacity duration-500`} />
+                  <div className="relative" style={{ transform: "translateZ(40px)" }}>
+                    <div className="flex items-start justify-between mb-6 gap-3">
+                      <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground px-2 py-1 rounded-full border border-white/10">
+                        {p.tag}
+                      </span>
+                      <ExternalLink size={16} className="text-muted-foreground group-hover:text-foreground transition shrink-0" />
+                    </div>
+                    <h3 className="text-2xl font-bold">{p.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                   </div>
-                </div>
-
-                <div className="col-span-12 md:col-span-4 md:col-start-8 mt-6 md:mt-0">
-                  <div className="grid grid-cols-3 gap-3">
-                    {p.metrics.map((m) => (
-                      <div key={m.k} className="border border-foreground/15 p-3">
-                        <div className="serif text-xl text-copper">{m.v}</div>
-                        <div className="mt-1 text-[9px] font-mono tracking-widest uppercase text-muted-foreground">{m.k}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex items-center justify-between text-[10px] font-mono tracking-widest uppercase text-muted-foreground">
-                    <span>{p.year}</span>
-                    <span className="inline-flex items-center gap-1 group-hover:text-copper transition">
-                      View piece
-                      <ArrowUpRight size={12} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* copper sweep on hover */}
-              <motion.div
-                className="pointer-events-none absolute left-0 bottom-0 h-px bg-copper"
-                initial={{ width: 0 }}
-                whileHover={{ width: "100%" }}
-              />
-            </motion.a>
+                  <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(600px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--color-neon) 18%, transparent), transparent 40%)" }} />
+                </a>
+              </TiltCard>
+            </motion.div>
           ))}
         </div>
-
-        <div className="mt-16 flex items-baseline justify-between">
-          <span className="serif-italic text-2xl">— end of catalogue.</span>
-          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">
-            04 / 04
-          </span>
-        </div>
-      </div>
+      </section>
     </PageTransition>
   );
 }

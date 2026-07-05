@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PageTransition, PageMasthead } from "../components/Layout";
+import { PageTransition } from "../components/Layout";
 import { Clock, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/articles")({
   head: () => ({
     meta: [
-      { title: "Journal — Harish Kumar V" },
-      { name: "description", content: "Essays on motion, AI/ML, and the craft of shipping." },
+      { title: "Articles — Harish Portfolio" },
+      { name: "description", content: "Essays on motion, 3D web, and the craft of shipping." },
     ],
   }),
   component: Articles,
@@ -24,68 +24,38 @@ const ARTICLES = [
 function Articles() {
   return (
     <PageTransition variant="blur">
-      <div className="mx-auto max-w-[1400px]">
-        <PageMasthead
-          eyebrow="Chapter 04 · The Journal"
-          index="04"
-          title="Featured"
-          italic="dispatches."
-          meta="05 ENTRIES · 2026"
-          lede="Field notes from the desk — motion, AI systems, and the practice of shipping."
-        />
+      <section className="mx-auto max-w-3xl">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+          <p className="text-sm font-semibold text-primary uppercase tracking-widest">Writing</p>
+          <h1 className="mt-3 text-5xl sm:text-6xl font-bold">Featured articles.</h1>
+        </motion.div>
 
-        <div className="mt-16 grid grid-cols-12 gap-6">
-          <div className="hidden md:block col-span-2">
-            <div className="sticky top-32 space-y-2">
-              <span className="eyebrow">Index</span>
-              {ARTICLES.map((_, i) => (
-                <div key={i} className="font-mono text-xs text-muted-foreground">
-                  — {String(i + 1).padStart(2, "0")}
+        <div className="mt-12 space-y-3">
+          {ARTICLES.map((a, i) => (
+            <motion.a
+              key={a.title}
+              href="#"
+              initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: i * 0.1, duration: 0.7 }}
+              whileHover={{ x: 8 }}
+              className="group flex items-center gap-6 p-5 sm:p-6 rounded-2xl border border-white/10 bg-card/30 backdrop-blur-xl hover:border-primary/40 hover:bg-card/60 transition"
+            >
+              <div className="flex-1">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-2">
+                  <span className="px-2 py-0.5 rounded-full border border-white/10 text-primary">{a.tag}</span>
+                  <span>{a.date}</span>
+                  <span className="flex items-center gap-1"><Clock size={12} />{a.read}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="col-span-12 md:col-span-10 border-t border-foreground/15">
-            {ARTICLES.map((a, i) => (
-              <motion.a
-                key={a.title}
-                href="#"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.07, duration: 0.7 }}
-                className="group grid grid-cols-12 gap-4 items-baseline py-8 border-b border-foreground/15 hover:pl-3 transition-all"
-              >
-                <span className="col-span-2 md:col-span-1 font-mono text-[10px] tracking-widest text-copper">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="col-span-10 md:col-span-8">
-                  <h3 className="serif text-2xl sm:text-3xl leading-tight group-hover:text-copper transition">
-                    {a.title}
-                  </h3>
-                  <div className="mt-3 flex items-center gap-4 text-[11px] font-mono uppercase tracking-widest text-muted-foreground">
-                    <span className="text-copper">{a.tag}</span>
-                    <span>·</span>
-                    <span>{a.date}</span>
-                    <span className="flex items-center gap-1"><Clock size={11} />{a.read}</span>
-                  </div>
-                </div>
-                <div className="hidden md:block col-span-3 text-right">
-                  <ArrowUpRight
-                    className="ml-auto text-muted-foreground group-hover:text-copper transition-all group-hover:translate-x-1 group-hover:-translate-y-1"
-                    size={22}
-                  />
-                </div>
-              </motion.a>
-            ))}
-          </div>
+                <h3 className="text-lg sm:text-xl font-semibold group-hover:text-gradient transition">
+                  {a.title}
+                </h3>
+              </div>
+              <ArrowUpRight className="text-muted-foreground group-hover:text-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0" size={20} />
+            </motion.a>
+          ))}
         </div>
-
-        <div className="mt-16 flex items-baseline justify-between">
-          <span className="serif-italic text-2xl">— archive continues.</span>
-          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">05 / 05</span>
-        </div>
-      </div>
+      </section>
     </PageTransition>
   );
 }
