@@ -93,20 +93,65 @@
 }
 
 .light {
-  --background: oklch(0.98 0.01 280);
-  --foreground: oklch(0.15 0.02 280);
-  --card: oklch(0.96 0.015 280);
-  --card-foreground: oklch(0.15 0.02 280);
-  --popover: oklch(0.96 0.015 280);
-  --popover-foreground: oklch(0.15 0.02 280);
-  --primary-foreground: oklch(0.98 0.005 280);
-  --secondary: oklch(0.92 0.02 280);
-  --secondary-foreground: oklch(0.15 0.02 280);
-  --muted: oklch(0.92 0.02 280);
-  --muted-foreground: oklch(0.4 0.02 280);
-  --accent-foreground: oklch(0.98 0.005 280);
-  --border: oklch(0 0 0 / 10%);
-  --input: oklch(0 0 0 / 8%);
+  --background: oklch(0.97 0.015 290);
+  --foreground: oklch(0.18 0.03 280);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 280);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 280);
+  --primary: oklch(0.52 0.24 var(--neon-h));
+  --primary-foreground: oklch(0.99 0.005 280);
+  --secondary: oklch(0.94 0.02 280);
+  --secondary-foreground: oklch(0.18 0.03 280);
+  --muted: oklch(0.94 0.02 280);
+  --muted-foreground: oklch(0.42 0.03 280);
+  --accent: oklch(0.55 0.22 var(--neon-h2));
+  --accent-foreground: oklch(0.99 0.005 280);
+  --border: oklch(0.2 0.03 280 / 14%);
+  --input: oklch(0.2 0.03 280 / 10%);
+  --ring: oklch(0.52 0.24 var(--neon-h));
+  --neon: oklch(0.55 0.26 var(--neon-h));
+  --neon-2: oklch(0.58 0.24 var(--neon-h2));
+  --neon-3: oklch(0.6 0.22 var(--neon-h3));
+}
+
+/* Light-theme overrides: make translucent dark-mode utilities readable on a bright background */
+.light body {
+  background:
+    radial-gradient(1200px 700px at 10% -10%, color-mix(in oklab, var(--color-neon) 18%, transparent), transparent 60%),
+    radial-gradient(1000px 600px at 100% 10%, color-mix(in oklab, var(--color-neon-2) 15%, transparent), transparent 60%),
+    radial-gradient(900px 700px at 50% 110%, color-mix(in oklab, var(--color-neon-3) 14%, transparent), transparent 60%),
+    var(--color-background);
+}
+
+.light .border-white\/10,
+.light .border-white\/20 {
+  border-color: color-mix(in oklab, var(--color-foreground) 14%, transparent) !important;
+}
+.light .bg-background\/40,
+.light .bg-background\/50,
+.light .bg-background\/60,
+.light .bg-background\/80 {
+  background-color: color-mix(in oklab, white 78%, var(--color-neon) 6%) !important;
+}
+.light .bg-card\/40,
+.light .bg-card\/50,
+.light .bg-card\/60 {
+  background-color: color-mix(in oklab, white 82%, var(--color-neon) 5%) !important;
+  box-shadow: 0 20px 60px -30px color-mix(in oklab, var(--color-neon) 40%, transparent);
+}
+.light .hover\:bg-white\/5:hover,
+.light .hover\:bg-white\/10:hover {
+  background-color: color-mix(in oklab, var(--color-foreground) 6%, transparent) !important;
+}
+.light .bg-primary\/15 {
+  background-color: color-mix(in oklab, var(--color-primary) 18%, transparent) !important;
+}
+.light .border-primary\/30 {
+  border-color: color-mix(in oklab, var(--color-primary) 55%, transparent) !important;
+}
+.light .text-gradient {
+  filter: saturate(1.15) contrast(1.05);
 }
 
 .dark {
