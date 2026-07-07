@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { HeroScene } from "../components/HeroScene";
+import { HeroLogo } from "../components/HeroLogo";
 import { PageTransition } from "../components/Layout";
 import { Magnetic, RevealText, Parallax } from "../components/Effects";
 import { ArrowRight, Sparkles, Trophy, GraduationCap, Award, Briefcase, Mail, Phone, MapPin } from "lucide-react";
@@ -80,7 +80,7 @@ function Index() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
           >
-            <HeroScene />
+            <HeroLogo />
           </motion.div>
         </Parallax>
       </section>
