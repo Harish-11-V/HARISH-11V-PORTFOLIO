@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { HeroScene } from "../components/HeroScene";
+import { HeroLogo } from "../components/HeroLogo";
 import { PageTransition } from "../components/Layout";
 import { Magnetic, RevealText, Parallax } from "../components/Effects";
 import { ArrowRight, Sparkles, Trophy, GraduationCap, Award, Briefcase, Mail, Phone, MapPin } from "lucide-react";
