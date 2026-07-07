@@ -17,6 +17,7 @@ import { Nav, GradientBlobs, SocialBar, RouteSweep } from "../components/Layout"
 import { ParticlesRoot, ParticlesBackground } from "../components/ParticlesBackground";
 import { CursorGlow } from "../components/CursorGlow";
 import { ScrollProgress } from "../components/Effects";
+import { AuroraBackground } from "../components/AuroraBackground";
 
 function NotFoundComponent() {
   return (
@@ -144,6 +145,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ParticlesRoot>
+        <AuroraBackground />
         <GradientBlobs />
         <div className="fixed inset-0 -z-10">
           <ParticlesBackground />
