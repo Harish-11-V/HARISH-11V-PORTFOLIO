@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { SectionGlow } from "./AuroraBackground";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -162,9 +163,12 @@ export function PageTransition({ children, variant = "fade" }: { children: React
       exit={variants.exit}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
       style={{ perspective: 1400 }}
-      className="relative min-h-screen pt-28 pb-20 px-4 sm:px-8"
+      className="relative min-h-screen pt-28 pb-20 px-4 sm:px-8 overflow-hidden"
     >
-      {children}
+      <SectionGlow variant="primary" className="w-[520px] h-[520px] -top-40 -left-32" />
+      <SectionGlow variant="accent" className="w-[460px] h-[460px] top-1/3 -right-40" />
+      <SectionGlow variant="tri" className="w-[380px] h-[380px] bottom-0 left-1/2 -translate-x-1/2 opacity-30" />
+      <div className="relative z-10">{children}</div>
     </motion.div>
   );
 }
