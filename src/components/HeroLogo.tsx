@@ -1,171 +1,271 @@
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 
 /**
- * Animated personal logo mark for the hero section.
- * Replaces the 3D blob with a crisp, theme-aware SVG logo that
- * syncs with the dynamic neon hue cycle and works in both themes.
+ * Dynamic "matrix" style hero mark.
+ * A rotating 3D wireframe cube built from orbiting rings + a live
+ * matrix-rain grid inside a glowing core disc. Everything cycles with
+ * the global neon hue variables so it looks alive in both themes.
  */
+
+const CHARS = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ<>/{}#*+=$".split("");
+
+function MatrixRain() {
+  const cols = 14;
+  const rows = 10;
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), 140);
+    return () => clearInterval(id);
+  }, []);
+
+  const grid = useMemo(() => {
+    return Array.from({ length: cols * rows }, (_, i) => ({
+      ch: CHARS[Math.floor(Math.random() * CHARS.length)],
+      // deterministic-ish shimmer based on index + tick
+      lit: (i * 37 + tick * 11) % 9 === 0,
+      dim: (i * 13 + tick * 7) % 5 === 0,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tick]);
+
+  return (
+    <div
+      className="grid font-mono text-[10px] leading-[1.05] select-none"
+      style={{
+        gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+        color: "var(--color-neon-2)",
+      }}
+      aria-hidden
+    >
+      {grid.map((c, i) => (
+        <span
+          key={i}
+          style={{
+            opacity: c.lit ? 1 : c.dim ? 0.15 : 0.45,
+            color: c.lit ? "var(--color-neon)" : undefined,
+            textShadow: c.lit ? "0 0 8px var(--color-neon)" : undefined,
+            transition: "opacity 140ms linear",
+          }}
+        >
+          {c.ch}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function HeroLogo() {
   return (
     <div className="relative w-full h-full min-h-[320px] flex items-center justify-center overflow-hidden">
-      {/* Ambient backdrop glow */}
+      {/* Ambient glow */}
       <div
-        className="absolute inset-0 rounded-full gradient-blur opacity-25 scale-[0.85]"
+        className="absolute inset-0 rounded-full gradient-blur opacity-30 scale-[0.8]"
         style={{ background: "var(--color-neon)" }}
       />
       <div
-        className="absolute inset-0 rounded-full gradient-blur opacity-20 scale-[0.65]"
-        style={{ background: "var(--color-neon-2)" }}
+        className="absolute inset-0 rounded-full gradient-blur opacity-20 scale-[0.55]"
+        style={{ background: "var(--color-neon-3)" }}
       />
 
+      {/* Rotating 3D wireframe cube (matrix feel) */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ perspective: 900 }}
+      >
+        <motion.div
+          className="relative"
+          style={{ transformStyle: "preserve-3d", width: 280, height: 280 }}
+          animate={{ rotateX: [0, 360], rotateY: [0, 360], rotateZ: [0, 180] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        >
+          {[
+            { t: "translateZ(140px)" },
+            { t: "translateZ(-140px)" },
+            { t: "rotateY(90deg) translateZ(140px)" },
+            { t: "rotateY(-90deg) translateZ(140px)" },
+            { t: "rotateX(90deg) translateZ(140px)" },
+            { t: "rotateX(-90deg) translateZ(140px)" },
+          ].map((f, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 rounded-md"
+              style={{
+                transform: f.t,
+                border: "1px solid color-mix(in oklab, var(--color-neon) 55%, transparent)",
+                boxShadow:
+                  "inset 0 0 30px color-mix(in oklab, var(--color-neon-2) 30%, transparent), 0 0 20px color-mix(in oklab, var(--color-neon) 25%, transparent)",
+                background:
+                  "linear-gradient(135deg, color-mix(in oklab, var(--color-neon) 6%, transparent), color-mix(in oklab, var(--color-neon-3) 4%, transparent))",
+              }}
+            />
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Counter-rotating orbit rings */}
       <svg
         viewBox="0 0 420 420"
-        className="relative z-10 w-full h-full max-w-[440px] drop-shadow-2xl"
-        aria-label="Harish logo mark"
+        className="absolute inset-0 w-full h-full max-w-[520px] mx-auto pointer-events-none"
+        aria-hidden
       >
         <defs>
-          <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="var(--color-neon)" />
-            <stop offset="45%" stopColor="var(--color-neon-2)" />
+            <stop offset="50%" stopColor="var(--color-neon-2)" />
             <stop offset="100%" stopColor="var(--color-neon-3)" />
           </linearGradient>
-
-          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--color-neon)" stopOpacity="0.35" />
-            <stop offset="60%" stopColor="var(--color-neon-2)" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="var(--color-neon-3)" stopOpacity="0" />
-          </radialGradient>
-
-          <filter id="logoGlow" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="8" result="blur" />
-            <feColorMatrix
-              in="blur"
-              type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-              result="glow"
-            />
+          <filter id="ringGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="b" />
             <feMerge>
-              <feMergeNode in="glow" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-
-          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
+              <feMergeNode in="b" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
         </defs>
 
-        {/* Outer orbit ring */}
         <motion.g
           animate={{ rotate: 360 }}
-          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "210px 210px" }}
         >
-          <circle
+          <ellipse
             cx="210"
             cy="210"
-            r="175"
+            rx="190"
+            ry="70"
             fill="none"
-            stroke="url(#brandGrad)"
+            stroke="url(#ringGrad)"
             strokeWidth="1.2"
-            opacity="0.35"
-            strokeDasharray="10 18"
+            opacity="0.6"
+            strokeDasharray="4 10"
+            filter="url(#ringGlow)"
           />
         </motion.g>
-
-        {/* Mid orbit ring */}
         <motion.g
           animate={{ rotate: -360 }}
-          transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "210px 210px" }}
         >
-          <circle
+          <ellipse
             cx="210"
             cy="210"
-            r="145"
+            rx="70"
+            ry="190"
             fill="none"
             stroke="var(--color-neon-2)"
-            strokeWidth="1.5"
-            opacity="0.45"
-            strokeDasharray="40 70"
+            strokeWidth="1.2"
+            opacity="0.5"
+            strokeDasharray="6 14"
+            filter="url(#ringGlow)"
           />
         </motion.g>
-
-        {/* Inner orbit ring */}
         <motion.g
           animate={{ rotate: 360 }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           style={{ transformOrigin: "210px 210px" }}
         >
           <circle
             cx="210"
             cy="210"
-            r="115"
+            r="180"
             fill="none"
             stroke="var(--color-neon-3)"
-            strokeWidth="1.8"
-            opacity="0.5"
-            strokeDasharray="80 40"
+            strokeWidth="1"
+            opacity="0.35"
+            strokeDasharray="2 12"
           />
         </motion.g>
+      </svg>
 
-        {/* Core glow */}
-        <circle cx="210" cy="210" r="105" fill="url(#coreGlow)">
-          <animate attributeName="r" values="105;112;105" dur="6s" repeatCount="indefinite" />
-        </circle>
+      {/* Core matrix window with pulsing H monogram */}
+      <div
+        className="relative z-10 rounded-full flex items-center justify-center overflow-hidden"
+        style={{
+          width: 210,
+          height: 210,
+          background:
+            "radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--color-background) 92%, transparent) 40%, color-mix(in oklab, var(--color-neon) 15%, transparent))",
+          border: "1.5px solid color-mix(in oklab, var(--color-neon) 55%, transparent)",
+          boxShadow:
+            "0 0 60px color-mix(in oklab, var(--color-neon) 45%, transparent), inset 0 0 40px color-mix(in oklab, var(--color-neon-2) 25%, transparent)",
+        }}
+      >
+        <div className="absolute inset-3 rounded-full overflow-hidden opacity-70">
+          <MatrixRain />
+        </div>
 
-        {/* Core disc */}
-        <motion.circle
-          cx="210"
-          cy="210"
-          r="85"
-          fill="var(--color-background)"
-          stroke="url(#brandGrad)"
-          strokeWidth="2.5"
-          opacity="0.95"
-          animate={{ scale: [1, 1.03, 1] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformOrigin: "210px 210px" }}
+        {/* Scanline sweep */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent 0%, color-mix(in oklab, var(--color-neon) 35%, transparent) 50%, transparent 100%)",
+            mixBlendMode: "screen",
+            height: "40%",
+          }}
+          animate={{ y: ["-100%", "260%"] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "linear" }}
         />
 
         {/* H monogram */}
-        <motion.g
-          filter="url(#logoGlow)"
-          animate={{ opacity: [0.9, 1, 0.9] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        <motion.svg
+          viewBox="0 0 100 100"
+          className="relative z-10 w-24 h-24 drop-shadow-[0_0_10px_var(--color-neon)]"
+          animate={{ scale: [1, 1.06, 1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
+          <defs>
+            <linearGradient id="hGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--color-neon)" />
+              <stop offset="100%" stopColor="var(--color-neon-3)" />
+            </linearGradient>
+          </defs>
           <path
-            d="M170 160 v100 M250 160 v100 M170 210 h80"
+            d="M28 20 v60 M72 20 v60 M28 50 h44"
             fill="none"
-            stroke="url(#brandGrad)"
-            strokeWidth="14"
+            stroke="url(#hGrad)"
+            strokeWidth="9"
             strokeLinecap="round"
-            strokeLinejoin="round"
           />
-        </motion.g>
+        </motion.svg>
+      </div>
 
-        {/* Accent nodes on rings */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "210px 210px" }}
-        >
-          <circle cx="210" cy="35" r="5" fill="var(--color-neon)" filter="url(#softGlow)" />
-          <circle cx="210" cy="385" r="3.5" fill="var(--color-neon-3)" opacity="0.85" />
-        </motion.g>
-
-        <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "210px 210px" }}
-        >
-          <circle cx="355" cy="210" r="4" fill="var(--color-neon-2)" filter="url(#softGlow)" />
-        </motion.g>
-      </svg>
+      {/* Orbiting nodes */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+      >
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-2 w-3 h-3 rounded-full"
+          style={{
+            background: "var(--color-neon)",
+            boxShadow: "0 0 16px var(--color-neon)",
+          }}
+        />
+        <div
+          className="absolute left-1/2 -translate-x-1/2 bottom-2 w-2 h-2 rounded-full"
+          style={{
+            background: "var(--color-neon-3)",
+            boxShadow: "0 0 12px var(--color-neon-3)",
+          }}
+        />
+      </motion.div>
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+      >
+        <div
+          className="absolute top-1/2 -translate-y-1/2 right-3 w-2.5 h-2.5 rounded-full"
+          style={{
+            background: "var(--color-neon-2)",
+            boxShadow: "0 0 14px var(--color-neon-2)",
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
