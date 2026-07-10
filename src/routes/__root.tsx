@@ -145,6 +145,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SmoothScroll />
       <ParticlesRoot>
         <AuroraBackground />
         <GradientBlobs />
