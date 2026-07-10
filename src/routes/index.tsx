@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { HeroLogo } from "../components/HeroLogo";
 import { PageTransition } from "../components/Layout";
-import { Magnetic, RevealText, Parallax } from "../components/Effects";
+import { Magnetic, RevealText } from "../components/Effects";
 import { ArrowRight, Sparkles, Trophy, GraduationCap, Award, Briefcase, Mail, Phone, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -27,8 +26,8 @@ const fadeUp: Variants = {
 function Index() {
   return (
     <PageTransition variant="fade">
-      <section className="relative mx-auto max-w-6xl grid lg:grid-cols-2 gap-10 items-center min-h-[80vh]">
-        <motion.div variants={stagger} initial="initial" animate="animate" className="relative z-10">
+      <section className="relative mx-auto max-w-6xl grid grid-cols-1 gap-10 items-center min-h-[80vh]">
+        <motion.div variants={stagger} initial="initial" animate="animate" className="relative z-10 max-w-3xl">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-xs text-muted-foreground mb-6">
             <Sparkles size={14} className="text-primary" />
             Prefinal year · Open to internships & collaborations
@@ -73,16 +72,6 @@ function Index() {
           </motion.div>
         </motion.div>
 
-        <Parallax offset={40}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
-          >
-            <HeroLogo />
-          </motion.div>
-        </Parallax>
       </section>
 
       {/* About / Summary */}
