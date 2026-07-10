@@ -72,16 +72,6 @@ function Index() {
           </motion.div>
         </motion.div>
 
-        <Parallax offset={40}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
-          >
-            <HeroLogo />
-          </motion.div>
-        </Parallax>
       </section>
 
       {/* About / Summary */}
