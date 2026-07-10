@@ -18,6 +18,7 @@ import { ParticlesRoot, ParticlesBackground } from "../components/ParticlesBackg
 import { CursorGlow } from "../components/CursorGlow";
 import { ScrollProgress } from "../components/Effects";
 import { AuroraBackground } from "../components/AuroraBackground";
+import { SmoothScroll } from "../components/SmoothScroll";
 
 function NotFoundComponent() {
   return (
@@ -144,6 +145,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SmoothScroll />
       <ParticlesRoot>
         <AuroraBackground />
         <GradientBlobs />
