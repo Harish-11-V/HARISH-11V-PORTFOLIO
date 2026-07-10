@@ -26,8 +26,8 @@ const fadeUp: Variants = {
 function Index() {
   return (
     <PageTransition variant="fade">
-      <section className="relative mx-auto max-w-6xl grid lg:grid-cols-2 gap-10 items-center min-h-[80vh]">
-        <motion.div variants={stagger} initial="initial" animate="animate" className="relative z-10">
+      <section className="relative mx-auto max-w-6xl grid grid-cols-1 gap-10 items-center min-h-[80vh]">
+        <motion.div variants={stagger} initial="initial" animate="animate" className="relative z-10 max-w-3xl">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-xs text-muted-foreground mb-6">
             <Sparkles size={14} className="text-primary" />
             Prefinal year · Open to internships & collaborations
