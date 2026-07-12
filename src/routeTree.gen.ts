@@ -15,7 +15,7 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as CtaRouteImport } from './routes/cta'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CodingRouteImport } from './routes/coding'
-import { Route as ArticlesRouteImport } from './routes/articles'
+import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SkillsRoute = SkillsRouteImport.update({
@@ -48,9 +48,9 @@ const CodingRoute = CodingRouteImport.update({
   path: '/coding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArticlesRoute = ArticlesRouteImport.update({
-  id: '/articles',
-  path: '/articles',
+const AchievementsRoute = AchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,7 +61,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
+  '/achievements': typeof AchievementsRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -71,7 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
+  '/achievements': typeof AchievementsRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -82,7 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
+  '/achievements': typeof AchievementsRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -94,7 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/articles'
+    | '/achievements'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -104,7 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/articles'
+    | '/achievements'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -114,7 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/articles'
+    | '/achievements'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -125,7 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ArticlesRoute: typeof ArticlesRoute
+  AchievementsRoute: typeof AchievementsRoute
   CodingRoute: typeof CodingRoute
   ContactRoute: typeof ContactRoute
   CtaRoute: typeof CtaRoute
@@ -178,11 +178,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CodingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/articles': {
-      id: '/articles'
-      path: '/articles'
-      fullPath: '/articles'
-      preLoaderRoute: typeof ArticlesRouteImport
+    '/achievements': {
+      id: '/achievements'
+      path: '/achievements'
+      fullPath: '/achievements'
+      preLoaderRoute: typeof AchievementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -197,7 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ArticlesRoute: ArticlesRoute,
+  AchievementsRoute: AchievementsRoute,
   CodingRoute: CodingRoute,
   ContactRoute: ContactRoute,
   CtaRoute: CtaRoute,
@@ -208,3 +208,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
