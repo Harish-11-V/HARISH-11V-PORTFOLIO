@@ -15,7 +15,6 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as CtaRouteImport } from './routes/cta'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CodingRouteImport } from './routes/coding'
-import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -49,11 +48,6 @@ const CodingRoute = CodingRouteImport.update({
   path: '/coding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArticlesRoute = ArticlesRouteImport.update({
-  id: '/articles',
-  path: '/articles',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AchievementsRoute = AchievementsRouteImport.update({
   id: '/achievements',
   path: '/achievements',
@@ -68,7 +62,6 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
-  '/articles': typeof ArticlesRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -79,7 +72,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
-  '/articles': typeof ArticlesRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -91,7 +83,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
-  '/articles': typeof ArticlesRoute
   '/coding': typeof CodingRoute
   '/contact': typeof ContactRoute
   '/cta': typeof CtaRoute
@@ -104,7 +95,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/achievements'
-    | '/articles'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -115,7 +105,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/achievements'
-    | '/articles'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -126,7 +115,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/achievements'
-    | '/articles'
     | '/coding'
     | '/contact'
     | '/cta'
@@ -138,7 +126,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AchievementsRoute: typeof AchievementsRoute
-  ArticlesRoute: typeof ArticlesRoute
   CodingRoute: typeof CodingRoute
   ContactRoute: typeof ContactRoute
   CtaRoute: typeof CtaRoute
@@ -191,13 +178,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CodingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/articles': {
-      id: '/articles'
-      path: '/articles'
-      fullPath: '/articles'
-      preLoaderRoute: typeof ArticlesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/achievements': {
       id: '/achievements'
       path: '/achievements'
@@ -218,7 +198,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AchievementsRoute: AchievementsRoute,
-  ArticlesRoute: ArticlesRoute,
   CodingRoute: CodingRoute,
   ContactRoute: ContactRoute,
   CtaRoute: CtaRoute,
