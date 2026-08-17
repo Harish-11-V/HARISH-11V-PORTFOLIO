@@ -14,7 +14,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav, GradientBlobs, SocialBar, RouteSweep } from "../components/Layout";
-import { ParticlesRoot, ParticlesBackground } from "../components/ParticlesBackground";
+import { ParticlesRoot } from "../components/ParticlesBackground";
+import { AntigravityField } from "../components/AntigravityField";
 import { CursorGlow } from "../components/CursorGlow";
 import { ScrollProgress } from "../components/Effects";
 import { AuroraBackground } from "../components/AuroraBackground";
@@ -149,9 +150,7 @@ function RootComponent() {
       <ParticlesRoot>
         <AuroraBackground />
         <GradientBlobs />
-        <div className="fixed inset-0 -z-10">
-          <ParticlesBackground />
-        </div>
+        <AntigravityField />
         <CursorGlow />
         <ScrollProgress />
         <Nav />

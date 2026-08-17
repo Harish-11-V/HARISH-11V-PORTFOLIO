@@ -65,7 +65,7 @@
   --primary: oklch(0.72 0.21 var(--neon-h));
   --accent: oklch(0.72 0.21 var(--neon-h2));
   --ring: oklch(0.72 0.21 var(--neon-h));
-  animation: hue-cycle 14s linear infinite;
+  animation: hue-cycle 75s linear infinite;
 }
 
 @property --neon-h {
