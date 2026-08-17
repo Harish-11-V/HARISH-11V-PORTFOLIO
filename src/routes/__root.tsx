@@ -150,9 +150,7 @@ function RootComponent() {
       <ParticlesRoot>
         <AuroraBackground />
         <GradientBlobs />
-        <div className="fixed inset-0 -z-10">
-          <ParticlesBackground />
-        </div>
+        <AntigravityField />
         <CursorGlow />
         <ScrollProgress />
         <Nav />
