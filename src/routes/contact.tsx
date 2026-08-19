@@ -1,34 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { z } from "zod";
 import { PageTransition } from "../components/Layout";
-import { Check, Send } from "lucide-react";
+import { contactSchema, submitContactMessage } from "@/lib/contact.functions";
+import { Check, Send, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Harish Portfolio" },
       { name: "description", content: "Send a message. I reply within 24 hours." },
+      { property: "og:title", content: "Contact — Harish Portfolio" },
+      { property: "og:description", content: "Send a message. I reply within 24 hours." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Contact,
 });
 
-const schema = z.object({
-  name: z.string().trim().min(1, "Name required").max(80),
-  email: z.string().trim().email("Valid email required").max(200),
-  message: z.string().trim().min(5, "Tell me a bit more").max(1000),
-});
+const schema = contactSchema;
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [company, setCompany] = useState(""); // honeypot
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const send = useServerFn(submitContactMessage);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const r = schema.safeParse(form);
+    setServerError(null);
+    const r = schema.safeParse({ ...form, company });
     if (!r.success) {
       const errs: Record<string, string> = {};
       r.error.issues.forEach((i) => { errs[i.path[0] as string] = i.message; });
@@ -36,8 +42,17 @@ function Contact() {
       return;
     }
     setErrors({});
-    setSent(true);
+    setBusy(true);
+    try {
+      await send({ data: r.data });
+      setSent(true);
+    } catch (err: any) {
+      setServerError(err?.message ?? "Could not send your message. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   }
+
 
   return (
     <PageTransition variant="flip">
@@ -114,15 +129,27 @@ function Contact() {
                     )}
                   </motion.div>
                 ))}
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  className="hidden"
+                />
+                {serverError && <p className="text-xs text-destructive">{serverError}</p>}
                 <motion.button
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground glow-hover"
+                  disabled={busy}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground glow-hover disabled:opacity-60"
                 >
-                  <Send size={16} />
-                  Send message
+                  {busy ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  {busy ? "Sending..." : "Send message"}
                 </motion.button>
+
               </motion.form>
             )}
           </AnimatePresence>

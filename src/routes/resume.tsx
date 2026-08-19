@@ -1,19 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { PageTransition } from "../components/Layout";
-import { Download, FileText, Eye } from "lucide-react";
+import { getResumeDownloadUrl, getResumePreviewUrl } from "@/lib/resume.functions";
+import { Download, FileText, Eye, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
       { title: "Resume — Harish Portfolio" },
-      { name: "description", content: "Download Harish's developer resume." },
+      { name: "description", content: "Download Harish Kumar V's AI & ML developer resume." },
+      { property: "og:title", content: "Resume — Harish Portfolio" },
+      { property: "og:description", content: "Download Harish Kumar V's AI & ML developer resume." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Resume,
 });
 
 function Resume() {
+  const getDownload = useServerFn(getResumeDownloadUrl);
+  const getPreview = useServerFn(getResumePreviewUrl);
+  const [busy, setBusy] = useState<"download" | "preview" | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function open(kind: "download" | "preview") {
+    setBusy(kind);
+    setError(null);
+    try {
+      const res = kind === "download" ? await getDownload() : await getPreview();
+      if (!res.url) {
+        setError(res.error ?? "Resume is not available yet.");
+        return;
+      }
+      window.open(res.url, kind === "download" ? "_self" : "_blank");
+    } catch {
+      setError("Could not generate a secure link. Please try again.");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   return (
     <PageTransition variant="flip">
       <section className="mx-auto max-w-4xl min-h-[70vh] flex flex-col items-center justify-center text-center">
@@ -48,23 +77,28 @@ function Resume() {
             <h2 className="text-2xl font-bold">Harish_Kumar_V_Resume.pdf</h2>
             <p className="mt-2 text-sm text-muted-foreground">B.Tech AI & ML · Rajalakshmi Engineering College</p>
             <div className="mt-8 flex gap-3">
-              <motion.a
+              <motion.button
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-                href="/resume.pdf" download
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground glow-hover"
+                onClick={() => open("download")} disabled={busy !== null}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground glow-hover disabled:opacity-60"
               >
-                <Download size={16} />
+                {busy === "download" ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
                 Download
-              </motion.a>
-              <motion.a
+              </motion.button>
+              <motion.button
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-                href="/resume.pdf" target="_blank" rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold hover:bg-white/5"
+                onClick={() => open("preview")} disabled={busy !== null}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold hover:bg-white/5 disabled:opacity-60"
               >
-                <Eye size={16} />
+                {busy === "preview" ? <Loader2 size={16} className="animate-spin" /> : <Eye size={16} />}
                 Preview
-              </motion.a>
+              </motion.button>
             </div>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Served through a secure link that expires in 2 minutes.
+            </p>
+            {error && <p className="mt-3 text-xs text-destructive">{error}</p>}
+
           </div>
         </motion.div>
       </section>
