@@ -109,11 +109,24 @@ function Admin() {
           <ShieldAlert size={40} className="text-primary" />
           <h1 className="mt-6 text-3xl font-bold">Not authorised</h1>
           <p className="mt-3 text-muted-foreground text-sm">
-            This account has no admin role yet. Ask the site owner to grant access.
+            This account has no admin role yet. If you are the site owner and this is the first
+            account, claim ownership below.
           </p>
+          <button
+            onClick={async () => {
+              const { data } = await supabase.rpc("claim_first_admin");
+              if (data) qc.invalidateQueries({ queryKey: ["admin-status"] });
+              else setUploadMsg("Ownership already claimed by another account.");
+            }}
+            className="mt-6 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground glow-hover"
+          >
+            Claim owner access
+          </button>
+          {uploadMsg && <p className="mt-3 text-xs text-destructive">{uploadMsg}</p>}
           <button onClick={signOut} className="mt-6 text-sm text-primary hover:underline">
             Sign out
           </button>
+
         </section>
       </PageTransition>
     );
