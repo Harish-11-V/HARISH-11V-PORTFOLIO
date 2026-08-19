@@ -1,19 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { PageTransition } from "../components/Layout";
-import { Download, FileText, Eye } from "lucide-react";
+import { getResumeDownloadUrl, getResumePreviewUrl } from "@/lib/resume.functions";
+import { Download, FileText, Eye, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
       { title: "Resume — Harish Portfolio" },
-      { name: "description", content: "Download Harish's developer resume." },
+      { name: "description", content: "Download Harish Kumar V's AI & ML developer resume." },
+      { property: "og:title", content: "Resume — Harish Portfolio" },
+      { property: "og:description", content: "Download Harish Kumar V's AI & ML developer resume." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Resume,
 });
 
 function Resume() {
+  const getDownload = useServerFn(getResumeDownloadUrl);
+  const getPreview = useServerFn(getResumePreviewUrl);
+  const [busy, setBusy] = useState<"download" | "preview" | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function open(kind: "download" | "preview") {
+    setBusy(kind);
+    setError(null);
+    try {
+      const res = kind === "download" ? await getDownload() : await getPreview();
+      if (!res.url) {
+        setError(res.error ?? "Resume is not available yet.");
+        return;
+      }
+      window.open(res.url, kind === "download" ? "_self" : "_blank");
+    } catch {
+      setError("Could not generate a secure link. Please try again.");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   return (
     <PageTransition variant="flip">
       <section className="mx-auto max-w-4xl min-h-[70vh] flex flex-col items-center justify-center text-center">
